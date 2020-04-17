@@ -1,6 +1,7 @@
 ---
 title: "Random Forests"
 date: "Last updated on `r Sys.Date()`"
+author: "Jinghan Gao"
 output:
   html_document: 
     # code_folding: show
@@ -193,8 +194,29 @@ Fit one Random Forest model `model_rf` using any approach you want.
 
 
 ***
+# View train data 
+```{r, eval=FALSE}
+View(train)
+```
 
+# Fit a Random Forest model
 
+Fit one Random Forest model `model_rf` using any approach you want.
+
+```{r}
+# Fit random forest:
+model_rf <- randomForest(
+  # Model formula
+  form = model_formula,
+  # Training data
+  data = training, 
+  # At each node of tree, number of features/predictor variables to randomly
+  # choose from for splitting:
+  mtry = 2,
+  # Number of bagged (bootstrap aggregated) trees in your forest:
+  ntree = 100 
+)
+```
 
 # Make predictions and submit to Kaggle
 
