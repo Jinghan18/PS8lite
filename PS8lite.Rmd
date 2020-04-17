@@ -223,7 +223,21 @@ model_rf <- randomForest(
 Using `model_rf` make predictions and submit to Kaggle.
 
 ```{r}
+test <- test %>% 
+  mutate(
+    logSalePrice_hat_rf = predict(object = model_rf, newdata = test),
+    SalePrice_hat_rf = exp(logSalePrice_hat_rf) -1
+  )
+glimpse(test)
+```
 
+
+# Create a Kaggle submission 
+```{r, eval=FALSE}
+submission_rf <- test %>%
+  mutate(SalePrice = SalePrice_hat_rf) %>%
+  select(Id, SalePrice)
+write_csv(submission_rf, "submission_rf.csv")
 ```
 
 
